@@ -3,6 +3,20 @@ ipcRenderer.on('trigger-pause', () => {
     pause(); // Llama a la función pause() cuando llega el mensaje
 });
 
+/**
+ * Toggles the pause menu on or off.
+ *
+ * - **Opening** (pauseMenu === 0): gradually desaturates the game elements,
+ *   fades out music, disables player interaction, and shows #pauseMenu.
+ *   The "Exit" button in the pause menu sends `close-app` to the main process.
+ * - **Closing** (pauseMenu === 1): reverses the grayscale filter, restores
+ *   music volume, re-enables player interaction, and hides #pauseMenu.
+ *
+ * Called by the IPC event `trigger-pause` which is fired by the main process
+ * whenever the Escape key is pressed.
+ *
+ * @returns {Promise<void>}
+ */
 async function pause() {
 
     let background = document.getElementById('background');

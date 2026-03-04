@@ -1,3 +1,17 @@
+/**
+ * Displays the end-of-hand gains screen, calculates the cash earned, and
+ * updates the player's cash balance ({@link playerHP}).
+ *
+ * Scoring rules:
+ *  - If the bell was **not** pressed (clean hand): `(playerScore - opponentScore) × 3 × betCombo`.
+ *  - Otherwise: `(playerScore - opponentScore) × betCombo`.
+ *
+ * The function fades out music, darkens the screen, animates the score and
+ * cash-earned text, and waits for the player to click "Next Stage" before
+ * returning control to the main game loop.
+ *
+ * @returns {Promise<void>}
+ */
 async function gains(params) {
     //Quitar contadores de combo momentaneamente
     comboIA.classList.add("fadeOut")

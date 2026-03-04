@@ -29,6 +29,17 @@ Thx for keeping the game alive!
 */
 
 //Funcion debounce para evitar que se hagan varias llamadas a la vez
+/**
+ * Returns a debounced version of the provided function that delays invoking it
+ * until after `delay` milliseconds have elapsed since the last call.
+ * Useful for preventing rapid repeated piece-click events from firing the handler
+ * multiple times.
+ *
+ * @param {Function} func  - The function to debounce.
+ * @param {number}   delay - The debounce delay in milliseconds.
+ * @returns {Function} A new function that, when called, resets the delay timer
+ *   and invokes `func` after the delay has passed with no further calls.
+ */
 function debounce(func, delay) {
     let timeoutId;
     return function (...args) {
@@ -37,6 +48,27 @@ function debounce(func, delay) {
     };
 }
 
+/**
+ * Attaches debounced click handlers to every piece currently rendered in the
+ * player's hand (#contenedor).
+ *
+ * On click each handler:
+ *  1. Identifies the piece from its CSS class (`dadoSeleccionado`) and special
+ *     state (`estadoFicha`).
+ *  2. Validates that the piece's face matches {@link caraNecesaria} (or that
+ *     {@link blankFace} is active).
+ *  3. Moves the selected piece to the played-pieces row (#manoJugada) using the
+ *     appropriate horizontal sprite, updates {@link dadosVisibles}, decrements
+ *     {@link dadosRestantes}, and calls {@link comboLogic}.
+ *  4. For special pieces (suffixes `t`, `f`, `n`/`p`, `e`, `c`) applies their
+ *     unique play logic (animations, sounds, special face rules) via a `switch`
+ *     on `cifra3` (the piece-type character).
+ *  5. On an invalid selection flashes the piece red and plays an error sound.
+ *
+ * Standard pieces use only two-character identifiers; special pieces use three.
+ *
+ * @returns {Promise<void>}
+ */
 async function piecesLogic() {
 
     // Seleccionar todas las imágenes con la clase "dado"

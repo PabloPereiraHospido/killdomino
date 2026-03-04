@@ -4,6 +4,13 @@ This script contains the logic behind the cards of the game.
 
 */
 
+/**
+ * Slides the played-pieces row off-screen and displays the card-selection UI,
+ * prompting the player to choose a card between rounds.
+ * The enemy taunts the player via {@link TTS} before the cards appear.
+ *
+ * @returns {Promise<void>}
+ */
 async function cardsLogic(params) {
     //Desplazar dados mano jugada
     let manoJugadaIA = document.getElementById('manoJugada');

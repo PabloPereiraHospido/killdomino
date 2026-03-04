@@ -7,6 +7,20 @@ This script contains the ui logic and combo system of the game.
 
 
 
+/**
+ * Handles the visual and audio feedback for a single played piece and updates
+ * the running combo counter.
+ *
+ * Increments {@link comboNumber} and adds {@link caraNecesaria} to the player's
+ * running damage total ({@link damageCombo}).  If the piece has a special state
+ * (e.g. `"x2"`), the corresponding score-doubling animation is triggered.
+ * Screen-shake and vignette intensity are escalated as the projected earnings
+ * exceed increasing percentages of the player's current cash balance.
+ *
+ * @param {string} estadoFicha - The special state of the played piece (e.g. `"x2"`),
+ *   or `undefined` / any other value for a plain piece.
+ * @returns {Promise<void>}
+ */
 async function comboLogic(estadoFicha) {
 
     //Combo aplicado

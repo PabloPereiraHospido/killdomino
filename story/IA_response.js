@@ -1,3 +1,13 @@
+/**
+ * Triggers a scripted AI dialogue sequence based on the provided scene number.
+ * Each case plays a sequence of messages through {@link TTS} with appropriate
+ * delays between lines.
+ *
+ * @param {number} number - Identifier of the dialogue scene to play:
+ *   - `1` – Opening monologue ("Hello dear friend…").
+ *   - `2` – Acknowledgement that the player knows how to play.
+ * @returns {Promise<void>}
+ */
 async function iaTalk(number) {
 
     switch (number) {

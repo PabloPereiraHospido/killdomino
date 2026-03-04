@@ -1,5 +1,10 @@
 const { app, BrowserWindow, Menu, ipcMain, globalShortcut, screen } = require('electron')
 let mainWindow;
+
+/**
+ * Creates the main Electron browser window in fullscreen mode with Node.js
+ * integration enabled and loads the main menu scene.
+ */
 const createWindow = () => {
   mainWindow = new BrowserWindow({
     width: 1920,

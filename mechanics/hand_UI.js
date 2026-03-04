@@ -108,6 +108,23 @@ taptap.addEventListener("dblclick", async function(){
 
 //Logica de los objetos en la mesa
 
+/**
+ * Reads the currently equipped object from the #objectContainer element and
+ * registers the appropriate event listeners and passive flags for that object.
+ *
+ * Supported objects and their behaviours:
+ * - **mirror** – Sets {@link mirrored} to `true` and plays a hover animation.
+ * - **demon**  – On click, calls {@link demonLogic} to convert all hand pieces to 6/6.
+ * - **blank**  – On click, plays a blank piece to the table and sets {@link blankFace}
+ *   so the next piece can bypass the face-matching requirement (once per hand).
+ * - **lastBurn** – Registers {@link lustBurnLogic} so it fires when one piece remains.
+ * - **luck**   – Sets {@link luck} to `true`, reducing AI multi-play probability.
+ * - **coin**   – Sets {@link coinEarnings} to `true` for the +10 % end-of-hand bonus.
+ * - **magnetic** – Calls {@link magneticLogic} to toggle electric pieces.
+ * - **tedTalk** – Triggers an AI dialogue sequence via {@link iaTalk}.
+ *
+ * @returns {Promise<void>}
+ */
 async function objectsLogic() {
 
     let objectContainer = document.getElementById('objectContainer');

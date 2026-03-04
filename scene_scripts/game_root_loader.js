@@ -37,6 +37,20 @@ atmos.play();
 
 //Renderizar la mano randomizada y el primer dado de la partida
 
+/**
+ * Shuffles the global piece pool ({@link dados}) using Fisher-Yates and deals the
+ * first 10 pieces as the player's new hand.
+ *
+ * Pieces at indices 0–6 are rendered as visible sprites in #contenedor.
+ * Pieces at indices 7–9 are appended as hidden elements (`display: none`) and
+ * revealed later when the player draws additional pieces.
+ * Standard pieces (2-character id) use static `.png` sprites; special pieces
+ * (3-character id) use animated `.gif` sprites.
+ * After rendering, {@link hoverFunctions} and {@link piecesLogic} are called to
+ * attach interaction handlers.
+ *
+ * @returns {Promise<void>}
+ */
 async function randomizeHand() {
 
     await esperar(1000);
@@ -176,6 +190,16 @@ setTimeout(() => {
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------
 
+/**
+ * Attaches `mouseenter` and `mouseleave` event listeners to every piece in the
+ * player's hand to provide hover sounds and a tooltip description box (#infoBox).
+ *
+ * For special pieces the hover handler plays the appropriate looping sound
+ * (fire, magnetic, TNT) and populates #infoBox with a flavor-text description.
+ * On `mouseleave` all special hover sounds are paused and the tooltip is hidden.
+ *
+ * @returns {Promise<void>}
+ */
 async function hoverFunctions() {
 
     //Efectos y funciones al hacer hover en los dados

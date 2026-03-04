@@ -1,3 +1,13 @@
+/**
+ * Adjusts every game-scene UI element to match the provided screen dimensions.
+ * Scales positions and sizes proportionally from the reference resolution of 1920×1080.
+ * Also listens for IPC events 'screen-resolution' and 'window-resized' to re-apply
+ * scaling whenever the window size changes.
+ *
+ * @param {number} x - The current viewport width in pixels.
+ * @param {number} y - The current viewport height in pixels.
+ * @returns {Promise<void>}
+ */
 async function screen(x,y) {
 
     screenX = x

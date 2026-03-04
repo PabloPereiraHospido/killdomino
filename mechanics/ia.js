@@ -12,6 +12,26 @@ This script contains the code to the response of the IA to the player choice.
 
 
 //funcion asincrona para pdoer usar los awaits
+/**
+ * Executes the AI opponent's full turn.
+ *
+ * Determines how many pieces the AI will play this turn using a random roll
+ * (1–5 pieces, weighted towards 1).  When the **Luck** object is active the
+ * probabilities are shifted further in the player's favour.
+ *
+ * For each piece played the AI:
+ *  1. Picks a valid face that matches {@link caraNecesaria} and selects a random
+ *     second face to form the domino.
+ *  2. Appends the horizontal piece image to the played-pieces row (#manoJugada).
+ *  3. Plays selection and drag sounds and updates the combo counter
+ *     ({@link damageComboIA}).
+ *  4. Updates {@link caraNecesaria} to the newly exposed face.
+ *
+ * After all pieces are played the function re-enables player interaction and
+ * calls {@link checkIfRoundWin}.
+ *
+ * @returns {Promise<void>}
+ */
 async function turnoIA() {
 
     const comboSound = document.getElementById("comboSound")

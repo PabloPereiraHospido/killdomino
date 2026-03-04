@@ -1,3 +1,11 @@
+/**
+ * Animates the provided text character-by-character into the enemy speech-bubble
+ * element (#enemyText), accompanied by a static noise audio loop.
+ * The bubble is automatically hidden after the full text has been displayed.
+ *
+ * @param {string} text - The message to display in the enemy speech bubble.
+ * @returns {Promise<void>}
+ */
 async function TTS(text){
 
     let enemyText = document.getElementById("enemyText");

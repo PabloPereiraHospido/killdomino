@@ -8,6 +8,12 @@ This script contains the logic behind every object in the game.
 
 //Demon
 
+/**
+ * Activates the Demon object: transforms every visible piece in the player's
+ * hand into a 6/6 piece, playing a sound effect between each transformation.
+ *
+ * @returns {Promise<void>}
+ */
 async function demonLogic() {
     let demonChange = document.getElementById("demonChange");
     demonChange.volume = 0.6;
@@ -25,6 +31,13 @@ async function demonLogic() {
 }
 
 //Magnetic
+/**
+ * Activates the Magnetic object: iterates over every visible piece and toggles
+ * its electric state between inactive (`n`) and active (`p`), updating both the
+ * {@link dadosVisibles} array and the DOM sprite accordingly.
+ *
+ * @returns {Promise<void>}
+ */
 async function magneticLogic() {
     let imagenes = document.querySelectorAll(".dado");
     for (let imagen of imagenes) {
@@ -78,6 +91,14 @@ async function magneticLogic() {
     }
 }
 
+/**
+ * Activates the Last Burn object when exactly one piece remains in the hand.
+ * Randomly selects and removes one piece from {@link dadosVisibles}, decrements
+ * {@link dadosRestantes}, and calls {@link checkIfRoundWin} to trigger the
+ * end-of-hand sequence.
+ *
+ * @returns {Promise<void>}
+ */
 async function lustBurnLogic() {
     if (dadosRestantes == 1) {
         await esperar(1500);
@@ -129,12 +150,28 @@ async function lustBurnLogic() {
 
 //Funcion para mezclar los objetos
 
+/**
+ * Returns three randomly selected elements from the provided array without
+ * modifying the original array (random comparison sort on a copy).
+ *
+ * @param {Array} arr - The source array to pick from.
+ * @returns {Array} A new array containing three randomly chosen elements.
+ */
 function obtenerTresAleatorios(arr) {
     let mezclados = [...arr].sort(() => Math.random() - 0.5); // Barajar una copia del array
     return mezclados.slice(0, 3); // Tomar los primeros tres elementos
 }
 
 
+/**
+ * Runs the box-challenge sequence that occurs when the player reaches the current
+ * bet target.  Animates a crate falling onto the table, then presents three
+ * randomly selected objects for the player to choose from.  After selection the
+ * chosen object's passive/active behaviour is registered via {@link objectsLogic}
+ * and the next hand is dealt.
+ *
+ * @returns {Promise<void>}
+ */
 async function boxLogic() {
 
     //Desplazar dados mano jugada

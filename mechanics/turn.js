@@ -1,4 +1,11 @@
 //Resetear todo lo necesario para la nueva mano
+/**
+ * Resets all per-hand state variables and deals a fresh hand of 10 pieces.
+ * Restores the draw counter, invisible-piece counter, hand layout, and calls
+ * {@link randomizeHand} to populate the player's hand for the next round.
+ *
+ * @returns {Promise<void>}
+ */
 async function handReset() {
     damageCombo = 0;
     damageComboIA = 0;
@@ -18,11 +25,29 @@ async function handReset() {
     contenedor.style.pointerEvents = "auto";
 }
 
+/**
+ * Delays the hand reset by 1600 ms to allow end-of-hand animations to finish
+ * before calling {@link handReset}.
+ *
+ * @returns {Promise<void>}
+ */
 async function fixHandReset() {
     await esperar(1600);
     handReset();
 }
 
+/**
+ * Checks whether the current hand is over (all pieces played).
+ * When the hand ends it:
+ *  - Resets visual and audio effects (music volume, vignette, screen-shake).
+ *  - Calls {@link gains} to display the end-of-hand score screen and award cash.
+ *  - Applies per-hand object effects (Coin +10 %, Magnetic deactivation).
+ *  - Removes invisible pieces that were not revealed.
+ *  - Advances to the box-challenge stage if the player's cash has reached
+ *    {@link maxBet}; otherwise schedules the next hand via {@link fixHandReset}.
+ *
+ * @returns {Promise<void>}
+ */
 async function checkIfRoundWin() {
     if (dadosRestantes <= 0) {
         taptap.style.pointerEvents = "none";

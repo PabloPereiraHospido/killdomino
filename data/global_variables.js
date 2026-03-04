@@ -104,6 +104,11 @@ let impactBass = document.getElementById("impactBass");
 
 //funcion para hacer esperas y timear cosas
 
+/**
+ * Promisified delay helper used throughout the game for sequencing async operations.
+ * @param {number} ms - Number of milliseconds to wait before resolving.
+ * @returns {Promise<void>} A promise that resolves after the specified delay.
+ */
 function esperar(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
